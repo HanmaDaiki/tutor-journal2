@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/_src/app/config/theme";
 
 import "../styles";
+import { AuthProvider } from "@/_src/app/providers/auth";
 
 export const metadata: Metadata = {
   title: "Журнал репетитора",
@@ -24,7 +25,9 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
     <html lang="ru">
       <body className={roboto.variable}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <AuthProvider>{children}</AuthProvider>
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

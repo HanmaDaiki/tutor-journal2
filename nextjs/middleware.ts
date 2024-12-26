@@ -26,8 +26,7 @@ function decodedJwt(token: string): string | null {
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const pathname = request.nextUrl.pathname;
-
-  const protectedRoutes = ["/dashboard", "/profile", "/api/users"];
+  const protectedRoutes = ["/dashboard", "/profile"];
 
   if (token) {
     const userId = decodedJwt(token);

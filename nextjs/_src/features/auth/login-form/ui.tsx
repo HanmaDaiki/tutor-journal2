@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useLogin } from "./model";
+import { useRouter } from "next/navigation";
 import {
   Box,
   TextField,
@@ -12,6 +13,7 @@ import {
 } from "@mui/material";
 
 export const LoginForm = () => {
+  const router = useRouter();
   const { handleLogin } = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +25,7 @@ export const LoginForm = () => {
 
     try {
       await handleLogin({ email, password });
-      alert("Вы успешно вошли!");
+      router.push("/");
     } catch (err: any) {
       setError(err.message);
     }

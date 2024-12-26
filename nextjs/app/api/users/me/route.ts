@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
   const userId = request.headers.get("x-user-id");
-  console.log(userId);
+  
   if (!userId) {
     return new Response("Unauthorized", { status: 401 });
   }

@@ -13,12 +13,12 @@ interface AuthStore {
   isAuth: boolean;
   user: User | null;
   setIsAuth: (isAuth: boolean) => void;
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
   isAuth: false,
   user: null,
   setIsAuth: (isAuth: boolean) => set({ isAuth }),
-  setUser: (user: any) => set({ user }),
+  setUser: (user) => set({ user }),
 }));

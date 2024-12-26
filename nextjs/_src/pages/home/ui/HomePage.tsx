@@ -1,101 +1,180 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { use, useEffect, useState } from "react";
+import {
+  Box,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Container,
+} from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/_src/entities/auth/model";
+
+export const HomePage = () => {
+  const router = useRouter();
+  const { isAuth } = useAuthStore();
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <Container
+      maxWidth="lg"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        mt: 5,
+        gap: 4,
+      }}
+    >
+      {/* Заголовок */}
+      <Typography
+        variant="h3"
+        fontWeight="bold"
+        textAlign="center"
+        color="primary"
+      >
+        Журнал Репетитора
+      </Typography>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {isAuth ? (
+        <>
+          {/* Описание для авторизованных пользователей */}
+          <Typography
+            variant="body1"
+            textAlign="center"
+            color="textSecondary"
+            maxWidth={600}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Добро пожаловать обратно! Управляйте расписанием, следите за
+            прогрессом учеников и контролируйте свои финансы.
+          </Typography>
+
+          {/* Карточки с ключевыми функциями */}
+          <Grid container spacing={4} justifyContent="center">
+            {/* Управление расписанием */}
+            <Grid item xs={12} sm={6} md={4}>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  padding: 2,
+                  height: "100%",
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h5" fontWeight="bold" mb={2}>
+                    Управление расписанием
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" mb={2}>
+                    Создавайте и управляйте расписанием занятий, чтобы всегда
+                    оставаться организованным.
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => router.push("/schedule")}
+                  >
+                    Открыть расписание
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            {/* Прогресс учеников */}
+            <Grid item xs={12} sm={6} md={4}>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  padding: 2,
+                  height: "100%",
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h5" fontWeight="bold" mb={2}>
+                    Прогресс учеников
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" mb={2}>
+                    Отслеживайте успехи учеников и анализируйте их достижения.
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => router.push("/students")}
+                  >
+                    Просмотреть прогресс
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            {/* Финансовый учет */}
+            <Grid item xs={12} sm={6} md={4}>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  padding: 2,
+                  height: "100%",
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h5" fontWeight="bold" mb={2}>
+                    Финансовый учет
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" mb={2}>
+                    Контролируйте свои доходы и расходы, чтобы эффективно вести
+                    финансовую отчетность.
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => router.push("/finance")}
+                  >
+                    Управление финансами
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </>
+      ) : (
+        <>
+          {/* Описание для неавторизованных пользователей */}
+          <Typography
+            variant="body1"
+            textAlign="center"
+            color="textSecondary"
+            maxWidth={600}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            Добро пожаловать в цифровой инструмент для репетиторов! Управляйте
+            расписанием, следите за прогрессом учеников и оптимизируйте свою
+            работу легко и эффективно.
+          </Typography>
+
+          {/* Призыв к действию для неавторизованных пользователей */}
+          <Box textAlign="center" mt={4}>
+            <Typography variant="h6" color="textSecondary" mb={2}>
+              Начните упрощать свою работу прямо сейчас!
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => router.push("/signup")}
+            >
+              Зарегистрироваться
+            </Button>
+          </Box>
+        </>
+      )}
+    </Container>
   );
-}
+};
+
+export default HomePage;
