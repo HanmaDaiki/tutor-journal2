@@ -14,7 +14,6 @@ export default function SignupPage() {
         background: 'linear-gradient(135deg, #ffffff, #f2f7fc)',
       }}
     >
-      {/* Текстовая секция */}
       <Box
         sx={{
           flex: 1,
@@ -48,12 +47,12 @@ export default function SignupPage() {
             color: '#1e88e5',
             '&:hover': { backgroundColor: '#e3f2fd' },
           }}
+          href="/"
         >
           Узнать больше
         </Button>
       </Box>
 
-      {/* Форма регистрации */}
       <Box
         sx={{
           flex: 1,

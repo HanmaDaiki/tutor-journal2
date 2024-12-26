@@ -6,7 +6,7 @@ export interface LoginData {
 }
 
 export const useLogin = () => {
-  const { setIsAuth } = useAuthStore();
+  const { setIsAuth, setUser } = useAuthStore();
 
   const handleLogin = async (data: LoginData) => {
     try {
@@ -15,7 +15,13 @@ export const useLogin = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
+      const res = await fetch("/api/users/me", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const user = await res.json();
+      
+      setUser(user);
       setIsAuth(true);
     } catch (error) {
       throw new Error("Ошибка входа " + error);
