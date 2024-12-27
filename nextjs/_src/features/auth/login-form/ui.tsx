@@ -11,6 +11,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
+import Link from "next/link";
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -92,6 +93,7 @@ export const LoginForm = () => {
           <Typography variant="body2" color="textSecondary">
             Ещё нет аккаунта?{" "}
             <Button
+              LinkComponent={Link}
               href="/signup"
               variant="text"
               sx={{ color: "primary.main", textTransform: "none" }}

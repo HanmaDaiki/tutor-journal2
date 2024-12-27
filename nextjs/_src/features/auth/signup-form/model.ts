@@ -1,3 +1,5 @@
+import axios, { isAxiosError } from "axios";
+
 interface SignupData {
   email: string;
   password: string;
@@ -9,13 +11,12 @@ interface SignupData {
 export const useSignup = () => {
   const handleSignup = async (data: SignupData) => {
     try {
-      await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      await axios.post("/api/auth/signup", data);
     } catch (error) {
-      throw new Error("Ошибка входа " + error);
+      if (isAxiosError(error)) {
+        throw new Error(error.response?.data.error || "Ошибка регистрации");
+      }
+      throw new Error("Ошибка регистрации");
     }
   };
 

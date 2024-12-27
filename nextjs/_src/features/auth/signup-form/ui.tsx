@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSignup } from "./model";
 import {
   Box,
@@ -14,9 +15,11 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import Link from "next/link";
 
 export const SignupForm = () => {
   const { handleSignup } = useSignup();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -43,7 +46,7 @@ export const SignupForm = () => {
 
     try {
       await handleSignup({ firstName, lastName, email, password, role });
-      alert("Регистрация прошла успешно!");
+      router.push("/login");
     } catch (err: any) {
       setError(err.message || "Произошла ошибка при регистрации.");
     }
@@ -119,6 +122,9 @@ export const SignupForm = () => {
               labelId="role-select-label"
               value={formData.role}
               onChange={(e) => handleChange("role", e.target.value)}
+              MenuProps={{
+                disableScrollLock: true,
+              }}
             >
               <MenuItem value="STUDENT">Ученик</MenuItem>
               <MenuItem value="TUTOR">Репетитор</MenuItem>
@@ -141,6 +147,7 @@ export const SignupForm = () => {
           <Typography variant="body2" color="textSecondary">
             Уже есть аккаунт?{" "}
             <Button
+              LinkComponent={Link}
               href="/login"
               variant="text"
               sx={{ color: "primary.main", textTransform: "none" }}

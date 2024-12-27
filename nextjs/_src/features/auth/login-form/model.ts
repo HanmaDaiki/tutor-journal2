@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/_src/entities/auth/model";
+import axios, { isAxiosError } from "axios";
 
 export interface LoginData {
   email: string;
@@ -10,21 +11,18 @@ export const useLogin = () => {
 
   const handleLogin = async (data: LoginData) => {
     try {
-      await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      const res = await fetch("/api/users/me", {
-        method: "GET",
+      await axios.post("/api/auth/login", data);
+      const res = await axios.get("/api/users/me", {
         headers: { "Content-Type": "application/json" },
       });
-      const user = await res.json();
-      
-      setUser(user);
+
+      setUser(res.data.user);
       setIsAuth(true);
     } catch (error) {
-      throw new Error("Ошибка входа " + error);
+      if (isAxiosError(error)) {
+        throw new Error(error.response?.data.error);
+      }
+      throw new Error("Ошибка при входе");
     }
   };
 

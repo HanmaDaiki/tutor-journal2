@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/_src/entities/auth/model";
+import Link from "next/link";
 
 const HomePage = () => {
   const router = useRouter();
@@ -24,9 +25,11 @@ const HomePage = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
+          gap: 2,
           alignItems: "center",
-          mt: 5,
-          gap: 4,
+          justifyContent: "center",
+          minHeight: "100vh",
+          padding: 2,
         }}
       >
         <Typography
@@ -57,6 +60,7 @@ const HomePage = () => {
             color="primary"
             size="large"
             onClick={() => router.push("/login")}
+            LinkComponent={Link}
           >
             Войти
           </Button>
@@ -71,9 +75,11 @@ const HomePage = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
+        gap: 2,
         alignItems: "center",
-        mt: 5,
-        gap: 4,
+        justifyContent: "center",
+        minHeight: "100vh",
+        padding: 2,
       }}
     >
       <Typography

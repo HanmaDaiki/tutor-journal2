@@ -61,7 +61,6 @@ export async function POST(req: Request) {
 
     return response;
   } catch (error) {
-    console.error("Ошибка входа:", error);
     return NextResponse.json(
       { error: "Произошла ошибка при входе" },
       { status: 500 }

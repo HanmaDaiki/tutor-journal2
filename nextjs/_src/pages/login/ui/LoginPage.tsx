@@ -1,5 +1,6 @@
 import { LoginForm } from "@/_src/features/auth";
 import { Box, Typography, Button } from "@mui/material";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
@@ -42,6 +43,7 @@ export default function LoginPage() {
           работу с нашим сервисом.
         </Typography>
         <Button
+          LinkComponent={Link}
           variant="outlined"
           sx={{
             borderColor: "#1e88e5",

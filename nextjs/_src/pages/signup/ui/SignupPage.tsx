@@ -1,5 +1,6 @@
 import { SignupForm } from '@/_src/features/auth';
 import { Box, Typography, Button } from '@mui/material';
+import Link from 'next/link';
 
 export default function SignupPage() {
   return (
@@ -41,6 +42,7 @@ export default function SignupPage() {
           Создайте аккаунт, чтобы воспользоваться всеми возможностями платформы.
         </Typography>
         <Button
+          LinkComponent={Link}
           variant="outlined"
           sx={{
             borderColor: '#1e88e5',
