@@ -62,7 +62,7 @@ export async function POST(req: Request) {
     return response;
   } catch (error) {
     return NextResponse.json(
-      { error: "Произошла ошибка при входе" },
+      { error: "Произошла ошибка при входе" + error },
       { status: 500 }
     );
   }
