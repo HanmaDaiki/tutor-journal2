@@ -2,6 +2,7 @@ import { hash } from "bcryptjs";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import { Prisma } from "@prisma/client";
 
 const registerSchema = z.object({
   email: z.string().email("Некорректный email адрес"),
@@ -47,7 +48,7 @@ export async function POST(req: Request) {
 
     const hashedPassword = await hash(password, 10);
 
-    await prisma.$transaction(async (prisma) => {
+    await prisma.$transaction(async (prisma: Prisma.TransactionClient) => {
       await prisma.user.create({
         data: {
           email,
