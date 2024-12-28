@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import useLogout from "../models/logout";
+import useLogout from "../model/logout";
 
 const ProfileMenu = () => {
   const { user } = useAuthStore();
