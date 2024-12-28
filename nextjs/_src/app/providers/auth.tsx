@@ -1,7 +1,7 @@
 "use client";
 import { useAuthStore, User } from "@/_src/entities/auth/model";
 import { CircularProgress, Container } from "@mui/material";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -9,12 +9,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUser = async () => {
-    const res = await axios.get("/api/users/me");
-
-    if (res.status === 200) {
+    try {
+      const res = await axios.get("/api/users/me");
       setUser(res.data);
       setIsAuth(true);
-    } else {
+    } catch (e) {
+      if (isAxiosError(e)) console.log(e.message);
       setUser(null);
       setIsAuth(false);
     }
