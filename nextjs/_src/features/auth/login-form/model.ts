@@ -15,8 +15,8 @@ export const useLogin = () => {
       const res = await axios.get("/api/users/me", {
         headers: { "Content-Type": "application/json" },
       });
-
-      setUser(res.data.user);
+      
+      setUser(res.data);
       setIsAuth(true);
     } catch (error) {
       if (isAxiosError(error)) {
