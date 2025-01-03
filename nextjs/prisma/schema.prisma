@@ -11,14 +11,17 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  firstName String  
-  lastName  String 
+  firstName String
+  lastName  String
   role      Role
   createdAt DateTime @default(now())
 
-  lessonsAsTutor  Lesson[] @relation("TutorLessons")
-  lessonsAsStudent Lesson[] @relation("StudentLessons")
-  comments        Comment[]
+  lessonsAsTutor   Lesson[]  @relation("TutorLessons")
+  lessonsAsStudent Lesson[]  @relation("StudentLessons")
+  comments         Comment[]
+
+  tutors   User[] @relation("StudentTutors")
+  students User[] @relation("StudentTutors")
 }
 
 enum Role {
@@ -27,19 +30,19 @@ enum Role {
 }
 
 model Lesson {
-  id         Int      @id @default(autoincrement())
-  dateTime   DateTime
-  topic      String 
-  status     PaymentStatus
-  createdAt  DateTime @default(now())
+  id        Int           @id @default(autoincrement())
+  dateTime  DateTime
+  topic     String
+  status    PaymentStatus
+  createdAt DateTime      @default(now())
 
-  tutorId    Int
-  tutor      User     @relation("TutorLessons", fields: [tutorId], references: [id])
+  tutorId Int
+  tutor   User @relation("TutorLessons", fields: [tutorId], references: [id])
 
-  studentId  Int
-  student    User     @relation("StudentLessons", fields: [studentId], references: [id])
+  studentId Int
+  student   User @relation("StudentLessons", fields: [studentId], references: [id])
 
-  comments   Comment[]
+  comments Comment[]
 }
 
 enum PaymentStatus {
@@ -48,13 +51,13 @@ enum PaymentStatus {
 }
 
 model Comment {
-  id         Int      @id @default(autoincrement())
-  content    String 
-  createdAt  DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
 
-  lessonId   Int
-  lesson     Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId Int
+  lesson   Lesson @relation(fields: [lessonId], references: [id])
 
-  authorId   Int
-  author     User     @relation(fields: [authorId], references: [id])
+  authorId Int
+  author   User @relation(fields: [authorId], references: [id])
 }

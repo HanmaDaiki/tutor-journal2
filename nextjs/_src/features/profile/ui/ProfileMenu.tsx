@@ -9,8 +9,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import useLogout from "../model/logout";
+import { useRouter } from "next/navigation";
 
 const ProfileMenu = () => {
+  const router = useRouter();
   const { user } = useAuthStore();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { handleLogout } = useLogout();
@@ -21,6 +23,12 @@ const ProfileMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = async () => {
+    await handleLogout();
+
+    router.push("/");
   };
 
   const open = Boolean(anchorEl);
@@ -58,7 +66,7 @@ const ProfileMenu = () => {
       >
         <Button fullWidth>Профиль</Button>
         <Divider />
-        <Button color="error" onClick={handleLogout}>
+        <Button color="error" onClick={logout}>
           Выход из аккаунта
         </Button>
       </Popover>

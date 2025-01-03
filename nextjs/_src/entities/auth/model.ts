@@ -7,6 +7,8 @@ export interface User {
   firstName: string;
   lastName: string;
   createdAt: Date;
+  tutors: User[];
+  students: User[];
 }
 
 interface AuthStore {
