@@ -1,1 +1,3 @@
-export { default as Navigation } from './ui/Navigation';
+export { pages } from './model';
+
+export { default as Navigation } from './ui';

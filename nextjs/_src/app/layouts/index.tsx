@@ -6,6 +6,7 @@ import theme from "@/_src/app/config/theme";
 import { AuthProvider } from "@/_src/app/providers/auth";
 import { Header } from "@/_src/widgets/header";
 import "../styles";
+import { CssBaseline } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "Журнал репетитора",
@@ -27,6 +28,7 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <AuthProvider>
+              <CssBaseline />
               <Header />
               {children}
             </AuthProvider>

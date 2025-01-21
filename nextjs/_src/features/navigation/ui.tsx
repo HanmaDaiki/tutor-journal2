@@ -15,11 +15,8 @@ import { useState } from "react";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
-const pages = [
-  { text: "Дашборд", link: "/dashboard" },
-  { text: "Расписание", link: "/schedule" },
-  { text: "Журнал", link: "/journal" },
-];
+
+import { pages } from "./model";
 
 const Navigation = () => {
   const [open, setOpen] = useState(false);

@@ -1,61 +1,21 @@
-"use client";
 import {
   Typography,
-  Button,
+  Grid2,
   Card,
   CardContent,
   CardActions,
-  Box,
-  Grid2,
+  Button,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/_src/entities/auth/model";
-import { PageTitle, PageWrapper } from "@/_src/shared/ui";
 
-const HomePage = () => {
-  const router = useRouter();
-  const { isAuth, user } = useAuthStore();
+export function StudentHome() {
+  const { user } = useAuthStore();
 
-  if (!isAuth) {
-    return (
-      <PageWrapper>
-        <Box textAlign="center">
-          <Typography
-            variant="h3"
-            fontWeight="bold"
-            textAlign="center"
-            color="primary"
-          >
-            Журнал Репетитора
-          </Typography>
-          <Typography
-            variant="body1"
-            textAlign="center"
-            color="textSecondary"
-            maxWidth={600}
-            sx={{ margin: "0 auto", mt: 2 }}
-          >
-            Ваш личный помощник для оптимизации учебного процесса. Управляйте
-            занятиями, домашними заданиями и расписанием легко и эффективно.
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={() => router.push("/login")}
-            sx={{ mt: 4 }}
-          >
-            Войти
-          </Button>
-        </Box>
-      </PageWrapper>
-    );
+  if (user?.role !== "STUDENT") {
+    return null;
   }
-
   return (
-    <PageWrapper>
-      <PageTitle>Главная</PageTitle>
-
+    <>
       <Typography
         variant="h3"
         fontWeight="bold"
@@ -63,7 +23,7 @@ const HomePage = () => {
         color="primary"
         sx={{ mb: 2 }}
       >
-        Журнал {user?.role === "STUDENT" ? "ученика" : "репетитора"}
+        Журнал ученика
       </Typography>
       <Typography
         variant="body1"
@@ -71,13 +31,11 @@ const HomePage = () => {
         color="textSecondary"
         sx={{ mb: 4 }}
       >
-        Добро пожаловать, {user?.firstName} {user?.lastName}!{" "}
-        {user?.role === "TUTOR"
-          ? "Управляйте занятиями, следите за прогрессом учеников и упрощайте свою работу с помощью удобного инструмента."
-          : "Следите за расписанием занятий, выполняйте домашние задания и улучшайте свои результаты!"}
+        Добро пожаловать, {user?.firstName} {user?.lastName}! Следите за
+        расписанием занятий, выполняйте домашние задания и улучшайте свои
+        результаты!
       </Typography>
-      <Grid2 container spacing={2}>
-        {/* Панель управления */}
+      <Grid2 container spacing={2} overflow={"scroll"} >
         <Grid2 size={{ xs: 12, md: 4 }}>
           <Card
             sx={{
@@ -104,7 +62,6 @@ const HomePage = () => {
             </CardActions>
           </Card>
         </Grid2>
-        {/* Расписание */}
         <Grid2 size={{ xs: 12, md: 4 }}>
           <Card
             sx={{
@@ -161,8 +118,6 @@ const HomePage = () => {
           </Card>
         </Grid2>
       </Grid2>
-    </PageWrapper>
+    </>
   );
-};
-
-export default HomePage;
+}

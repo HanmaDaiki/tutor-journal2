@@ -1,51 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-  try {
-    const tutorId = request.headers.get("x-user-id");
-    if (!tutorId) {
-      return NextResponse.json(
-        { error: "Пользователь не авторизован." },
-        { status: 401 }
-      );
-    }
-
-    const tutor = await prisma.user.findUnique({
-      where: { id: parseInt(tutorId, 10) },
-    });
-
-    if (!tutor || tutor.role !== "TUTOR") {
-      return NextResponse.json(
-        { error: "Доступ запрещён. Только репетиторы имеют доступ." },
-        { status: 403 }
-      );
-    }
-
-    const students = await prisma.user.findMany({
-      where: {
-        tutors: {
-          some: { id: parseInt(tutorId, 10) },
-        },
-      },
-      select: {
-        id: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-      },
-    });
-
-    return NextResponse.json({ students });
-  } catch (error) {
-    console.error("Ошибка при получении списка учеников:", error);
-    return NextResponse.json(
-      { error: "Произошла ошибка при обработке запроса." },
-      { status: 500 }
-    );
-  }
-}
-
 export async function POST(request: Request) {
   try {
     const tutorId = request.headers.get("x-user-id");
